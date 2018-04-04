@@ -1,18 +1,39 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Bookmarks from './Components/Bookmarks';
+import AddBookmark from './Components/AddBookmark';
 import './App.css';
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      bookmarks: [
+        
+      ]
+    }
+  }
+
+  componentWillMount(){
+    this.setState({bookmarks: [
+      {
+        title: "Google",
+        link: "https://google.com/"
+      }
+    ]});
+  }
+
+  handleAddBookmark(bookmark){
+    let bookmarks = this.state.bookmarks;
+    bookmarks.push(bookmark);
+    this.setState(bookmarks:bookmarks);
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1 className="mainTitle">Bookmark Manager</h1>
+        <AddBookmark addBookmark={this.handleAddBookmark.bind(this)} />
+        <Bookmarks bookmarks={this.state.bookmarks}/>
       </div>
     );
   }
